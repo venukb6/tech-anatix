@@ -1,6 +1,6 @@
 const Project = require('../models/project');
 
-
+//get all projects from the project collection in database and send it as a json response
 exports.getAllProjects = (req, res) => { 
     console.log('inside get all projects route')
     Project.find().populate('client').exec()
@@ -12,6 +12,7 @@ exports.getAllProjects = (req, res) => {
         })
 }
 
+//get one single project from the project collection in database and send it as a json response
 exports.getoneProject = (req, res) => { 
   console.log('inside get one project route')
   const projectId = req.params.id;
@@ -25,7 +26,7 @@ exports.getoneProject = (req, res) => {
 }
 
 
-
+//create new document using the data received through the request and then save it to the project collection
 exports.postNewProject = (req, res) => {
     const newProject = new Project(req.body)
     newProject.save()
@@ -38,7 +39,7 @@ exports.postNewProject = (req, res) => {
 }
 
 
-
+//find the single project using id and then update that project details in the project collection
 exports.postUpdateProject = (req, res) => {
     Project.findByIdAndUpdate(req.params.id, req.body, {new: true})
     .then(project => {
@@ -53,7 +54,7 @@ exports.postUpdateProject = (req, res) => {
 }
 
 
-
+//find the project by its id and delete it
 exports.postDeleteProject = (req, res) => {
     Project.findByIdAndDelete(req.params.id)
       .then(project => {

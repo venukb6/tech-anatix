@@ -8,7 +8,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(Cors());
 
-
+//connecting mongodb to thr project using mongoose
 mongoose.connect('mongodb://localhost:27017/client-management')
   .then(() => {
     console.log('Connected to MongoDB');
@@ -26,11 +26,6 @@ app.get('/', (req, res) =>{
 
 app.use('/clients', clientRoutes);
 app.use('/projects', projectRoutes);
-
-
-
-
-
 
 
 

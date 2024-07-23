@@ -14,14 +14,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //     `
     // })
-
+    
+    //function to load the document
     const loadDashboard = () => {
         content.innerHTML = `
           <h2>Dashboard</h2>
           <p>Welcome to the Client Management Dashboard</p>
         `;
       };
-
+    
+    //function to fetch the clients from the backend using axios and then display it on the webpage
     const loadClients = () => {
         axios.get(`${serverUrl}/clients`)
         .then(response => {
@@ -45,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </form>
             <div id="clients-list"></div>
         `;
+
         const clientForm = document.getElementById('client-form');
         clientForm.addEventListener('submit', (e) => {
           e.preventDefault();
@@ -56,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
           axios.post(`${serverUrl}/clients`, clientData)
             .then(response => {
-              loadClients(); 
+              loadClients(); //again load the clients after adding new client
             })
             .catch(err => {
               console.error(err);
@@ -76,10 +79,12 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
         `).join('');
 
+        //access the edit-client button and add event listener to it
         document.querySelectorAll('.edit-client').forEach(button => {
           button.addEventListener('click', () => editClient(button.dataset.id));
         });
 
+        //access the delete-client button and add event listener to it
         document.querySelectorAll('.delete-client').forEach(button => {
           button.addEventListener('click', () => deleteClient(button.dataset.id));
         });
@@ -91,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
         
 
-
+  //function to fetch the projects from the backend using axios and then display it on the webpage
   const loadProjects = () => {
     console.log('entering load project')
     axios.get(`${serverUrl}/projects`)
@@ -146,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
               axios.post(`${serverUrl}/projects`, projectData)
                 .then(response => {
-                  loadProjects(); 
+                  loadProjects(); //again load the projects after adding new client
                 })
                 .catch(err => {
                   console.error(err);
@@ -166,10 +171,12 @@ document.addEventListener('DOMContentLoaded', () => {
               </div>
             `).join('');
 
+            //access the edit-project button and add event listener to it
             document.querySelectorAll('.edit-project').forEach(button => {
               button.addEventListener('click', () => editProject(button.dataset.id));
             });
 
+            //access the delete-project button and add event listener to it
             document.querySelectorAll('.delete-project').forEach(button => {
               button.addEventListener('click', () => deleteProject(button.dataset.id));
             });
@@ -183,6 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   };
 
+  //function to edit the client
   window.editClient = (id) => {
     console.log('entering editclient js function')
     axios.get(`${serverUrl}/clients/${id}`)
@@ -226,6 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .catch(error => console.error(error));
   };
 
+  //function to delete the client
   window.deleteClient = (id) => {
     axios.delete(`${serverUrl}/clients/${id}`)
       .then(response => {
@@ -234,6 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .catch(error => console.error(error));
   };
 
+  //function to edit the project
   window.editProject = (id) => {
     axios.get(`${serverUrl}/projects/${id}`)
       .then(response => {
@@ -295,6 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .catch(error => console.error(error));
   };
 
+  //function to delete the project
   window.deleteProject = (id) => {
     axios.delete(`${serverUrl}/projects/${id}`)
       .then(response => {
