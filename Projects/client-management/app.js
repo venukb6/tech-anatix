@@ -11,14 +11,18 @@ app.use(Cors());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+// const localMongodbURI = 'mongodb://localhost:27017/client-management'
+const cloudMongodbURI = 'mongodb+srv://venukb6:mongopassword@client-management.vyogfrw.mongodb.net/?retryWrites=true&w=majority&appName=client-management'
 //connecting mongodb to thr project using mongoose
-mongoose.connect('mongodb://localhost:27017/client-management')
+mongoose.connect(cloudMongodbURI)
   .then(() => {
     console.log('Connected to MongoDB');
   })
   .catch(err => {
     console.error('Error connecting to MongoDB:', err);
   });
+
+  
 
 const clientRoutes = require('./routes/client');
 const projectRoutes = require('./routes/project');
